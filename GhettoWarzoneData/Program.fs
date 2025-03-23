@@ -34,6 +34,7 @@ module Ui =
     let poolsTable(poolsOpt:RewardPoolRow list option) =
         [
             yield Text.h1 $"Pools"
+            yield Elem.a [ Attr.href $"https://warzones.ghettopigeon.com/" ] [ Text.raw $"(for GhettoWarzone Game on Algorand blockchain)" ]
             match poolsOpt with
             | Some pools ->
 
