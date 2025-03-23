@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GhettoWarzoneHelper", "GhettoWarzoneHelper\GhettoWarzoneHelper.fsproj", "{36595961-F815-4775-A561-D485B5CD1AD2}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GhettoWarzoneData", "GhettoWarzoneData\GhettoWarzoneData.fsproj", "{ECC7EE5A-97A0-4612-B7F5-A257BF669633}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36595961-F815-4775-A561-D485B5CD1AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36595961-F815-4775-A561-D485B5CD1AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36595961-F815-4775-A561-D485B5CD1AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36595961-F815-4775-A561-D485B5CD1AD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECC7EE5A-97A0-4612-B7F5-A257BF669633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECC7EE5A-97A0-4612-B7F5-A257BF669633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECC7EE5A-97A0-4612-B7F5-A257BF669633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECC7EE5A-97A0-4612-B7F5-A257BF669633}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

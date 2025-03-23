@@ -1,0 +1,76 @@
+body {
+    background-color: #202020;
+    font-size: 24px;
+    color: white;
+}
+
+p {
+    padding: 3px;
+    margin: 3px;
+}
+
+a {
+   color: lightyellow;
+}
+
+table {
+    table-layout: auto;
+    width: 100%;
+    border: 5px solid black;
+}
+
+tr:nth-child(odd) {
+    background-color: lightsteelblue;
+    color: black;
+}
+
+tr:nth-child(odd) a {
+    color: black;
+}
+
+tr:nth-child(even) {
+    background-color: darkslategray;
+    color: white;
+}
+
+tr:nth-child(even) a {
+    color: white;
+}
+
+th, td {
+    text-align: center;
+    padding: 10px;
+}
+
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_table_side_by_side2 */
+* {
+    box-sizing: border-box;
+}
+.row {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other on screens that are smaller than 600 px */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+h1 {
+    text-align: center
+}
