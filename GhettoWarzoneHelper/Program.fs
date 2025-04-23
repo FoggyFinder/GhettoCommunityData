@@ -34,9 +34,8 @@ module Utils =
     open System
     open Newtonsoft.Json.Linq
 
-    let rewardPoolsFromJson (content:string) =
+    let rewardPoolsFromJson (jObj:JObject) =
         try
-            let jObj = JObject.Parse(content)
             let pools = 
                 jObj.SelectToken("pools").Values()
                 |> Seq.map(fun (jToken:JToken) ->
@@ -96,19 +95,30 @@ module API =
 
     let getPools() =
         let client = new HttpClient()
+        let rec getPoolsOnPage (page:int) acc = async {
+            let uri = $"""https://api.ghettopigeon.com/api/v1/game-pools?page={page}"""
+            use request = new System.Net.Http.HttpRequestMessage()
+            request.Method <- System.Net.Http.HttpMethod.Get
+            request.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"))
+            request.RequestUri <- System.Uri(uri)
+            let! response = client.SendAsync(request) |> Async.AwaitTask
+            let! content = response.Content.ReadAsStringAsync() |> Async.AwaitTask
+            let jObj = JObject.Parse(content)
+            let pagePools =
+                Utils.rewardPoolsFromJson jObj |> Option.map(fun pools ->
+                    pools |> List.map(fun rp -> RewardPoolRow(rp, getUsdPrice rp.Asset.Id)))
+            let pools = pagePools::acc
+            let totalPages = jObj.SelectToken("totalPages").Value<int>()
+            if page = totalPages then
+                return pools
+            else
+                return! getPoolsOnPage (page + 1) pools
+            }
         async {
             try
-                let uri = "https://api.ghettopigeon.com/api/v1/game-pools"
-                use request = new System.Net.Http.HttpRequestMessage()
-                request.Method <- System.Net.Http.HttpMethod.Get
-                request.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"))
-                request.RequestUri <- System.Uri(uri)
-                let! response = client.SendAsync(request) |> Async.AwaitTask
-                let! content = response.Content.ReadAsStringAsync() |> Async.AwaitTask
-                return
-                    Utils.rewardPoolsFromJson content
-                    |> Option.map(fun pools ->
-                        pools |> List.map(fun rp -> RewardPoolRow(rp, getUsdPrice rp.Asset.Id)))
+                let! pools = getPoolsOnPage 1 []
+                if pools |> List.exists Option.isNone then return None
+                else return pools |> List.choose id |> List.concat |> Some
             with exp ->
                 return None
-        } |> Async.RunSynchronously
+        }  |> Async.RunSynchronously
