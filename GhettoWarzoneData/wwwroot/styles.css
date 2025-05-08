@@ -2,6 +2,29 @@ body {
     background-color: #202020;
     font-size: 24px;
     color: white;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+main {
+    overflow: auto
+}
+
+footer, header {
+    width: 100%;
+    position: fixed;
+    background: #333;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+}
+
+footer {
+    bottom: 0
+}
+
+header {
+    top: 0
 }
 
 p {
@@ -20,7 +43,7 @@ table {
 }
 
 tr:nth-child(odd) {
-    background-color: lightsteelblue;
+    background-color: darkgoldenrod;
     color: black;
 }
 

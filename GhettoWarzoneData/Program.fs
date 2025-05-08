@@ -28,16 +28,26 @@ module Ui =
                 yield Elem.link [ Attr.rel "icon"; Attr.href "/favicon.ico"; Attr.type' "image/x-icon" ]
             ]
 
-            Elem.body [ ] [ Elem.main [] content ]
+            Elem.body [ ] [ 
+                Elem.header [ ] [
+                    Elem.span [] [
+                        Text.raw "Rewards pools info for "
+                        Elem.a [ Attr.href $"https://warzones.ghettopigeon.com/"; Attr.targetBlank ] [
+                            Text.raw $"GhettoWarzone Game" ]
+                    ]
+                ]
+                Elem.main [] content
+                Elem.footer [] [
+                    Elem.a [ Attr.href "https://github.com/FoggyFinder/GhettoCommunityData"; Attr.targetBlank ]
+                        [ Text.raw "Source code" ]
+                ]
+            ]
         ]
 
     let poolsTable(poolsOpt:RewardPoolRow list option) =
         [
-            yield Text.h1 $"Pools"
-            yield Elem.a [ Attr.href $"https://warzones.ghettopigeon.com/" ] [ Text.raw $"(for GhettoWarzone Game on Algorand blockchain)" ]
             match poolsOpt with
             | Some pools ->
-
                 let poolsTableHeader =
                     Elem.tr [] [
                         Elem.th [] [ Text.raw "Number" ]
