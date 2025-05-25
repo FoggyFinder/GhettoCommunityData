@@ -19,6 +19,7 @@ type SingleGameReward = {
 type RewardPool = {
     Asset: Asset
     PoolBalance: decimal
+    PoolWallet: string
     Reward: SingleGameReward
     PurchaseLink: string
 } with
@@ -43,6 +44,7 @@ module Utils =
                     let assetName = jToken.SelectToken("tokenName").Value<string>()
                     let assetTicker = jToken.SelectToken("unitName").Value<string>()
                     let purchaseLink = jToken.SelectToken("purchaseLink").Value<string>()
+                    let wallet = jToken.SelectToken("wallet").Value<string>()
                     let tokenInPool = jToken.SelectToken("amountLeft").Value<decimal>()
 
                     let prizes = jToken.SelectToken("prizes")
@@ -56,6 +58,7 @@ module Utils =
                             Ticker = assetTicker
                             Name = assetName                        
                         }
+                        PoolWallet = wallet
                         PurchaseLink = purchaseLink
                         PoolBalance = tokenInPool
                         Reward = {

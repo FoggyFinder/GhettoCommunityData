@@ -78,7 +78,13 @@ module Ui =
                                 Elem.td [] [ Text.raw $"{rpr.RewardPool.FullGamesLeft}" ]
                             ]
                             Elem.tr [] [
-                                Elem.td [ Attr.colspan "7" ] [ Text.raw $"{rpr.RewardPool.PurchaseLink}" ]
+                                Elem.td [ Attr.colspan "7" ] [
+                                    Elem.a [ Attr.href ("https://allo.info/account/" + rpr.RewardPool.PoolWallet); Attr.targetBlank ]
+                                        [ Text.raw $"{rpr.RewardPool.PoolWallet}" ]
+                                    Elem.br []
+                                    Elem.a [ Attr.href $"{rpr.RewardPool.PurchaseLink}" ; Attr.targetBlank ]
+                                        [ Text.raw $"{rpr.RewardPool.PurchaseLink}" ]
+                                ]
                             ]
                         ])
                     |> List.concat
