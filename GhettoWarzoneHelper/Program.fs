@@ -83,15 +83,15 @@ module API =
         let client = new HttpClient()
         async {
             try
-                let uri = $"https://free-api.vestige.fi/asset/{assetId}/price?currency=usd"
+                let uri = $"https://api.vestigelabs.org/assets/price?asset_ids={assetId}&network_id=0&denominating_asset_id=31566704"
                 use request = new System.Net.Http.HttpRequestMessage()
                 request.Method <- System.Net.Http.HttpMethod.Get
                 request.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"))
                 request.RequestUri <- System.Uri(uri)
                 let! response = client.SendAsync(request) |> Async.AwaitTask
                 let! content = response.Content.ReadAsStringAsync() |> Async.AwaitTask
-                let jObj = JObject.Parse(content)
-                return jObj.SelectToken("price").Value<decimal>() |> Some
+                let jObj = JArray.Parse(content)
+                return jObj.[0].SelectToken("price").Value<decimal>() |> Some
             with exp ->
                 return None
         } |> Async.RunSynchronously
